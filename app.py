@@ -8,21 +8,12 @@ from pyspark.sql import SparkSession
 app = Flask(__name__)
 
 
-def produce_pi(scale):
+def cuenta(palabra):
     spark = SparkSession.builder.appName("PythonPi").getOrCreate()
-    n = 100000 * scale
 
-    def f(_):
-        from random import random
-        x = random()
-        y = random()
-        return 1 if x ** 2 + y ** 2 <= 1 else 0
-
-    count = spark.sparkContext.parallelize(
-        range(1, n + 1), scale).map(f).reduce(lambda x, y: x + y)
+    count = palabra.flatMap(lambda line: line.split("")).map(lambda char: (char, 1)).reduceByKey(lambda a, b: a+b
     spark.stop()
-    pi = 4.0 * count / n
-    return pi
+    return count
 
 
 @app.route("/")
@@ -32,8 +23,8 @@ def index():
 
 @app.route("/sparkpi")
 def sparkpi():
-    scale = int(request.args.get('scale', 2))
-    pi = produce_pi(scale)
+    palabra = int(request.args.get('palabra'))
+    size = 
     response = "Pi is roughly {}".format(pi)
 
     return response
