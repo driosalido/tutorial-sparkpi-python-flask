@@ -11,7 +11,7 @@ app = Flask(__name__)
 def cuenta(palabra):
     spark = SparkSession.builder.appName("PythonPi").getOrCreate()
 
-    count = palabra.flatMap(lambda line: line.split("")).map(lambda char: (char, 1)).reduceByKey(lambda a, b: a+b
+    count = palabra.flatMap(lambda line: line.split("")).map(lambda char: (char, 1)).reduceByKey(lambda a, b: a+b)
     spark.stop()
     return count
 
