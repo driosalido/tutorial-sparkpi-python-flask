@@ -24,9 +24,7 @@ def index():
 @app.route("/sparkpi")
 def sparkpi():
     palabra = int(request.args.get('palabra'))
-    size = 
-    response = "Pi is roughly {}".format(pi)
-
+    response = "Letras".format(cuenta(palabra))
     return response
 
 
